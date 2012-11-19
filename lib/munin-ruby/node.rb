@@ -14,8 +14,8 @@ module Munin
     # reconnect - Reconnect if connection was closed (default: true)
     #
     
-    def initialize(host='127.0.0.1', port=4949, reconnect=true)
-      @connection = Munin::Connection.new(host, port, reconnect)
+    def initialize(host='127.0.0.1', port=4949, reconnect=true, multigraph_cap=true)
+      @connection = Munin::Connection.new(host, port, reconnect, multigraph_cap)
     end
     
     # Open service connection
@@ -83,8 +83,12 @@ module Munin
         names.each do |service|
           begin
             connection.send_data("config #{service}")
-            lines = connection.read_packet 
-            results[service] = raw ? lines.join("\n") : parse_config(lines)
+            lines = connection.read_packet
+            if raw
+              results[service] = raw
+            else
+              results.merge!(parse_config(service, lines))
+            end
           rescue UnknownService, BadExit
             # TODO
           end
@@ -113,7 +117,7 @@ module Munin
         begin
           connection.send_data("fetch #{service}")
           lines = connection.read_packet
-          results[service] =  parse_fetch(lines)
+          results.merge!(parse_fetch(service, lines))
         rescue UnknownService, BadExit
           # TODO
         end

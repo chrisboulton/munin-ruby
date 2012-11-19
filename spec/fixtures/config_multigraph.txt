@@ -1,0 +1,79 @@
+config diskstats
+multigraph diskstats_latency
+graph_title Disk latency per device
+graph_args --base 1000
+graph_vlabel Average IO Wait (seconds)
+graph_category disk
+graph_width 400
+sda_avgwait.label sda
+sda_avgwait.type GAUGE
+sda_avgwait.info Average wait time for an I/O request
+sda_avgwait.min 0
+sda_avgwait.draw LINE1
+multigraph diskstats_utilization
+graph_title Disk utilization per device
+graph_args --base 1000 --lower-limit 0 --upper-limit 100 --rigid
+graph_vlabel Percent
+graph_category disk
+graph_width 400
+sda_util.label sda
+sda_util.type GAUGE
+sda_util.info Utilization of the device
+sda_util.min 0
+multigraph diskstats_throughput
+graph_title Disk throughput per device
+graph_args --base 1024
+graph_vlabel Bytes/${graph_period} read (-) / write (+)
+graph_category disk
+graph_width 400
+sda_rdbytes.label sda
+sda_rdbytes.type GAUGE
+sda_rdbytes.min 0
+sda_rdbytes.draw LINE1
+sda_rdbytes.graph no
+sda_wrbytes.label sda
+sda_wrbytes.type GAUGE
+sda_wrbytes.min 0
+sda_wrbytes.draw LINE1
+sda_wrbytes.negative sda_rdbytes
+multigraph diskstats_iops
+graph_title Disk IOs per device
+graph_args --base 1000
+graph_vlabel IOs/${graph_period} read (-) / write (+) 
+graph_category disk
+graph_width 400
+sda_rdio.label sda
+sda_rdio.type GAUGE
+sda_rdio.min 0
+sda_rdio.draw LINE1
+sda_rdio.graph no
+sda_wrio.label sda
+sda_wrio.type GAUGE
+sda_wrio.min 0
+sda_wrio.draw LINE1
+sda_wrio.negative sda_rdio
+multigraph diskstats_latency.sdj
+graph_title Disk latency for /dev/sdj
+graph_args --base 1000
+graph_vlabel seconds
+graph_category disk
+svctm.label Average device IO time
+svctm.type GAUGE
+svctm.info Average time an I/O takes on the block device
+svctm.min 0
+svctm.draw LINE1
+avgwait.label Average IO Wait time
+avgwait.type GAUGE
+avgwait.info Average wait time for an I/O from request start to finish (includes queue times et al)
+avgwait.min 0
+avgwait.draw LINE1
+avgrdwait.label Average Read IO Wait time
+avgrdwait.type GAUGE
+avgrdwait.info Average wait time for a read I/O from request start to finish (includes queue times et al)
+avgrdwait.min 0
+avgrdwait.draw LINE1
+avgwrwait.label Average Write IO Wait time
+avgwrwait.type GAUGE
+avgwrwait.info Average wait time for a write I/O from request start to finish (includes queue times et al)
+avgwrwait.min 0
+avgwrwait.draw LINE1

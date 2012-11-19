@@ -1,0 +1,10 @@
+multigraph diskstats_utilization.sdj
+util.value 0.238838838838839
+multigraph diskstats_throughput.sdj
+rdbytes.value 979.923923923924
+wrbytes.value 610.914914914915
+multigraph diskstats_iops.sdj
+rdio.value 0.0630630630630631
+wrio.value 0.182182182182182
+avgrdrqsz.value 15.1746031746032
+avgwrrqsz.value 3.27472527472527

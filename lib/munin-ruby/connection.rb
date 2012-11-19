@@ -9,12 +9,13 @@ module Munin
     # host - Server host (default: 127.0.0.1)
     # port - Server port (default: 4949)
     #
-    def initialize(host='127.0.0.1', port=4949, reconnect=true)
-      @host      = host
-      @port      = port
-      @socket    = nil
-      @connected = false
-      @reconnect = reconnect
+    def initialize(host='127.0.0.1', port=4949, reconnect=true, multigraph_cap=true)
+      @host           = host
+      @port           = port
+      @socket         = nil
+      @connected      = false
+      @reconnect      = reconnect
+      @multigraph_cap = multigraph_cap
     end
     
     # Returns true if socket is connected
@@ -36,6 +37,11 @@ module Munin
               raise Munin::AccessDenied
             end
             @connected = true
+
+            if @multigraph_cap
+              send_data("cap multigraph")
+              read_line # discard read return
+            end
           end
         rescue Timeout::Error
           raise Munin::ConnectionError, "Timed out talking to #{@host}"

@@ -1,4 +1,3 @@
-fetch memory
 slab.value 710025216
 swap_cache.value 823296
 page_tables.value 27803648
@@ -12,4 +11,3 @@ committed.value 2358927360
 mapped.value 1625862144
 active.value 5164363776
 inactive.value 10039930880
-.
